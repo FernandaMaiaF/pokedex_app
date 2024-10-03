@@ -8,7 +8,7 @@ int colorType(String? type) {
     case "Grass": return 0xAA7AC74C; 
     case "Ice": return 0xAA96D9D6; 
     case "Fighting": return 0xAAC22E28; 
-    case "Poison": return 0xAAA33EA1; 
+    case "Poison": return 0xAAA33EA1;
     case "Ground": return 0xAAE2BF65; 
     case "Flying": return 0xAAA98FF3; 
     case "Psychic": return 0xAAF95587; 

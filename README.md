@@ -46,5 +46,5 @@ O projeto segue a arquitetura Clean Architecture e está dividido nas seguintes 
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seuusuario/pokedex_app.git
+   git clone https://github.com/FernandaMaiaF/pokedex_app.git
    cd pokedex_app

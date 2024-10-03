@@ -3,12 +3,14 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i6;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:pokedex_app/data/models/pokemon_detail_model.dart' as _i2;
-import 'package:pokedex_app/data/models/pokemon_model.dart' as _i5;
-import 'package:pokedex_app/data/repositories/pokemon_repository.dart' as _i3;
+import 'package:pokedex_app/data/models/pokemon_info_model.dart' as _i3;
+import 'package:pokedex_app/data/models/pokemon_model.dart' as _i7;
+import 'package:pokedex_app/data/models/pokemon_summary_model.dart' as _i2;
+import 'package:pokedex_app/data/models/pokemon_type_info_model.dart' as _i4;
+import 'package:pokedex_app/data/repositories/pokemon_repository.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -23,9 +25,31 @@ import 'package:pokedex_app/data/repositories/pokemon_repository.dart' as _i3;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakePokemonDetailModel_0 extends _i1.SmartFake
-    implements _i2.PokemonDetailModel {
-  _FakePokemonDetailModel_0(
+class _FakePokemonSummaryModel_0 extends _i1.SmartFake
+    implements _i2.PokemonSummaryModel {
+  _FakePokemonSummaryModel_0(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakePokemonInfoModel_1 extends _i1.SmartFake
+    implements _i3.PokemonInfoModel {
+  _FakePokemonInfoModel_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakePokemonTypeInfoModel_2 extends _i1.SmartFake
+    implements _i4.PokemonTypeInfoModel {
+  _FakePokemonTypeInfoModel_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -37,13 +61,13 @@ class _FakePokemonDetailModel_0 extends _i1.SmartFake
 /// A class which mocks [PokemonRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPokemonRepository extends _i1.Mock implements _i3.PokemonRepository {
+class MockPokemonRepository extends _i1.Mock implements _i5.PokemonRepository {
   MockPokemonRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<List<_i5.PokemonModel>> getPokemons(
+  _i6.Future<List<_i7.PokemonModel>> getPokemons(
     int? limit,
     int? offset,
   ) =>
@@ -56,23 +80,57 @@ class MockPokemonRepository extends _i1.Mock implements _i3.PokemonRepository {
           ],
         ),
         returnValue:
-            _i4.Future<List<_i5.PokemonModel>>.value(<_i5.PokemonModel>[]),
-      ) as _i4.Future<List<_i5.PokemonModel>>);
+            _i6.Future<List<_i7.PokemonModel>>.value(<_i7.PokemonModel>[]),
+      ) as _i6.Future<List<_i7.PokemonModel>>);
 
   @override
-  _i4.Future<_i2.PokemonDetailModel> getPokemonDetails(String? url) =>
+  _i6.Future<_i2.PokemonSummaryModel> getPokemonSummary(String? url) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getPokemonDetails,
+          #getPokemonSummary,
           [url],
         ),
-        returnValue:
-            _i4.Future<_i2.PokemonDetailModel>.value(_FakePokemonDetailModel_0(
+        returnValue: _i6.Future<_i2.PokemonSummaryModel>.value(
+            _FakePokemonSummaryModel_0(
           this,
           Invocation.method(
-            #getPokemonDetails,
+            #getPokemonSummary,
             [url],
           ),
         )),
-      ) as _i4.Future<_i2.PokemonDetailModel>);
+      ) as _i6.Future<_i2.PokemonSummaryModel>);
+
+  @override
+  _i6.Future<_i3.PokemonInfoModel> getPokemonInfo(String? url) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPokemonInfo,
+          [url],
+        ),
+        returnValue:
+            _i6.Future<_i3.PokemonInfoModel>.value(_FakePokemonInfoModel_1(
+          this,
+          Invocation.method(
+            #getPokemonInfo,
+            [url],
+          ),
+        )),
+      ) as _i6.Future<_i3.PokemonInfoModel>);
+
+  @override
+  _i6.Future<_i4.PokemonTypeInfoModel> getPokemonTypeInfo(String? url) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPokemonTypeInfo,
+          [url],
+        ),
+        returnValue: _i6.Future<_i4.PokemonTypeInfoModel>.value(
+            _FakePokemonTypeInfoModel_2(
+          this,
+          Invocation.method(
+            #getPokemonTypeInfo,
+            [url],
+          ),
+        )),
+      ) as _i6.Future<_i4.PokemonTypeInfoModel>);
 }

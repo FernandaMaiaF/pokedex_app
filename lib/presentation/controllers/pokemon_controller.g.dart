@@ -29,13 +29,13 @@ mixin _$PokemonController on _PokemonControllerBase, Store {
       Atom(name: '_PokemonControllerBase.pokemonDetails', context: context);
 
   @override
-  ObservableMap<String, PokemonDetailModel> get pokemonDetails {
+  ObservableMap<String, PokemonSummaryModel> get pokemonDetails {
     _$pokemonDetailsAtom.reportRead();
     return super.pokemonDetails;
   }
 
   @override
-  set pokemonDetails(ObservableMap<String, PokemonDetailModel> value) {
+  set pokemonDetails(ObservableMap<String, PokemonSummaryModel> value) {
     _$pokemonDetailsAtom.reportWrite(value, super.pokemonDetails, () {
       super.pokemonDetails = value;
     });
@@ -54,6 +54,38 @@ mixin _$PokemonController on _PokemonControllerBase, Store {
   set filteredPokemons(ObservableList<PokemonModel> value) {
     _$filteredPokemonsAtom.reportWrite(value, super.filteredPokemons, () {
       super.filteredPokemons = value;
+    });
+  }
+
+  late final _$pokemonInfoAtom =
+      Atom(name: '_PokemonControllerBase.pokemonInfo', context: context);
+
+  @override
+  ObservableMap<String, PokemonInfoModel> get pokemonInfo {
+    _$pokemonInfoAtom.reportRead();
+    return super.pokemonInfo;
+  }
+
+  @override
+  set pokemonInfo(ObservableMap<String, PokemonInfoModel> value) {
+    _$pokemonInfoAtom.reportWrite(value, super.pokemonInfo, () {
+      super.pokemonInfo = value;
+    });
+  }
+
+  late final _$pokemonInfoTypeAtom =
+      Atom(name: '_PokemonControllerBase.pokemonInfoType', context: context);
+
+  @override
+  ObservableMap<String, PokemonTypeInfoModel> get pokemonInfoType {
+    _$pokemonInfoTypeAtom.reportRead();
+    return super.pokemonInfoType;
+  }
+
+  @override
+  set pokemonInfoType(ObservableMap<String, PokemonTypeInfoModel> value) {
+    _$pokemonInfoTypeAtom.reportWrite(value, super.pokemonInfoType, () {
+      super.pokemonInfoType = value;
     });
   }
 
@@ -89,6 +121,22 @@ mixin _$PokemonController on _PokemonControllerBase, Store {
     });
   }
 
+  late final _$isLoadingInfoAtom =
+      Atom(name: '_PokemonControllerBase.isLoadingInfo', context: context);
+
+  @override
+  bool get isLoadingInfo {
+    _$isLoadingInfoAtom.reportRead();
+    return super.isLoadingInfo;
+  }
+
+  @override
+  set isLoadingInfo(bool value) {
+    _$isLoadingInfoAtom.reportWrite(value, super.isLoadingInfo, () {
+      super.isLoadingInfo = value;
+    });
+  }
+
   late final _$getPokemonsAsyncAction =
       AsyncAction('_PokemonControllerBase.getPokemons', context: context);
 
@@ -97,13 +145,31 @@ mixin _$PokemonController on _PokemonControllerBase, Store {
     return _$getPokemonsAsyncAction.run(() => super.getPokemons());
   }
 
-  late final _$getPokemonDetailsAsyncAction =
-      AsyncAction('_PokemonControllerBase.getPokemonDetails', context: context);
+  late final _$getPokemonSummaryAsyncAction =
+      AsyncAction('_PokemonControllerBase.getPokemonSummary', context: context);
 
   @override
-  Future<void> getPokemonDetails(String url) {
-    return _$getPokemonDetailsAsyncAction
-        .run(() => super.getPokemonDetails(url));
+  Future<void> getPokemonSummary(String url) {
+    return _$getPokemonSummaryAsyncAction
+        .run(() => super.getPokemonSummary(url));
+  }
+
+  late final _$getPokemonInfoAsyncAction =
+      AsyncAction('_PokemonControllerBase.getPokemonInfo', context: context);
+
+  @override
+  Future<void> getPokemonInfo(String url) {
+    return _$getPokemonInfoAsyncAction.run(() => super.getPokemonInfo(url));
+  }
+
+  late final _$getPokemonTypeInfoAsyncAction = AsyncAction(
+      '_PokemonControllerBase.getPokemonTypeInfo',
+      context: context);
+
+  @override
+  Future<void> getPokemonTypeInfo(String url) {
+    return _$getPokemonTypeInfoAsyncAction
+        .run(() => super.getPokemonTypeInfo(url));
   }
 
   late final _$_PokemonControllerBaseActionController =
@@ -126,8 +192,11 @@ mixin _$PokemonController on _PokemonControllerBase, Store {
 pokemons: ${pokemons},
 pokemonDetails: ${pokemonDetails},
 filteredPokemons: ${filteredPokemons},
+pokemonInfo: ${pokemonInfo},
+pokemonInfoType: ${pokemonInfoType},
 isLoading: ${isLoading},
-isLoadingDetails: ${isLoadingDetails}
+isLoadingDetails: ${isLoadingDetails},
+isLoadingInfo: ${isLoadingInfo}
     ''';
   }
 }

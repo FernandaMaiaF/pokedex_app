@@ -3,10 +3,13 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:pokedex_app/data/repositories/pokemon_repository.dart';
 import 'package:pokedex_app/data/repositories/pokemon_repository_impl.dart';
-import 'package:pokedex_app/domain/usecases/get_pokemons_detail_usecase.dart';
+import 'package:pokedex_app/domain/usecases/get_pokemon_info_usecase.dart';
+import 'package:pokedex_app/domain/usecases/get_pokemon_summary_usecase.dart';
+import 'package:pokedex_app/domain/usecases/get_pokemon_type_info_usecase.dart';
 import 'package:pokedex_app/domain/usecases/get_pokemons_usecase.dart';
 import 'package:pokedex_app/presentation/controllers/favorites_store_controller.dart';
 import 'package:pokedex_app/presentation/controllers/pokemon_controller.dart';
+import 'package:pokedex_app/presentation/controllers/pokemon_detail_controller.dart';
 import 'package:pokedex_app/presentation/views/pokemon_detail_view.dart';
 import 'package:pokedex_app/presentation/views/pokemon_view.dart';
 
@@ -21,12 +24,22 @@ void setup() {
 
   // Caso de Uso
   getIt.registerFactory(() => GetPokemonsUsecase(getIt<PokemonRepository>()));
-  getIt.registerFactory(() => GetPokemonDetailsUseCase(getIt<PokemonRepository>()));
+  getIt.registerFactory(
+      () => GetPokemonSummaryUseCase(getIt<PokemonRepository>()));
+  getIt
+      .registerFactory(() => GetPokemonInfoUseCase(getIt<PokemonRepository>()));
+  getIt.registerFactory(
+      () => GetPokemonTypeInfoUseCase(getIt<PokemonRepository>()));
 
   // Controller
-  getIt.registerFactory(() => PokemonController(getIt<GetPokemonsUsecase>(), getIt<GetPokemonDetailsUseCase>()));
+  getIt.registerFactory(() => PokemonController(
+      getIt<GetPokemonsUsecase>(),
+      getIt<GetPokemonSummaryUseCase>(),
+      getIt<GetPokemonInfoUseCase>(),
+      getIt<GetPokemonTypeInfoUseCase>()));
+  getIt.registerFactory<PokemonDetailController>(
+      () => PokemonDetailController(getIt<PokemonRepository>()));
   getIt.registerLazySingleton<FavoritesStore>(() => FavoritesStore());
-
 }
 
 void main() {
@@ -39,14 +52,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       theme: ThemeData(
         primaryColor: const Color(0xFFFF0000),
         scaffoldBackgroundColor: const Color(0xFFE8E8E8),
-        appBarTheme:const AppBarTheme(
+        appBarTheme: const AppBarTheme(
           toolbarHeight: 70,
-          backgroundColor:  Color(0xFFE3350D),
+          backgroundColor: Color(0xFFE3350D),
           titleTextStyle: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,

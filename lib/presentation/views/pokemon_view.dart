@@ -6,6 +6,7 @@ import 'package:pokedex_app/presentation/controllers/pokemon_controller.dart';
 import 'package:pokedex_app/presentation/utils/color_pokemon_type.dart';
 import 'package:pokedex_app/presentation/utils/string_utils.dart';
 import 'package:pokedex_app/presentation/views/pokemon_detail_view.dart';
+import 'package:pokedex_app/presentation/views/widgets/type_effect_row_widget.dart';
 
 class PokemonView extends StatelessWidget {
   static const routeName = '/pokemon-list';
@@ -72,7 +73,7 @@ class PokemonView extends StatelessWidget {
                       return Observer(builder: (_) {
                         final details = controller.pokemonDetails[pokemon.url];
                         if (details == null) {
-                          controller.getPokemonDetails(pokemon.url);
+                          controller.getPokemonSummary(pokemon.url);
                           return ListTile(
                             title: Text(pokemon.name),
                             trailing: const CircularProgressIndicator(),
@@ -80,8 +81,8 @@ class PokemonView extends StatelessWidget {
                         } else {
                           return GestureDetector(
                             onTap: () {
-                              pokemon.setDetail(details);
-                              if (pokemon.detail != null) {
+                              pokemon.setSummary(details);
+                              if (pokemon.summary != null) {
                                 Navigator.pushNamed(
                                   context,
                                   PokemonDetailView.routName,
@@ -90,7 +91,6 @@ class PokemonView extends StatelessWidget {
                               }
                             },
                             child: Card(
-                              elevation: 0,
                               color: Color(colorType(details.type[0].name)),
                               child: Stack(
                                 alignment: AlignmentDirectional.topEnd,
@@ -118,50 +118,7 @@ class PokemonView extends StatelessWidget {
                                                   color: Colors.white,
                                                 ),
                                               ),
-                                              Wrap(
-                                                spacing: 1,
-                                                direction: Axis.vertical,
-                                                children:
-                                                    details.type.map((type) {
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            2.0),
-                                                    child: Container(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          vertical: 4,
-                                                          horizontal: 12),
-                                                      decoration: BoxDecoration(
-                                                        color: (details.type[0]
-                                                                    .name ==
-                                                                type.name)
-                                                            ? const Color
-                                                                .fromARGB(32,
-                                                                255, 255, 255)
-                                                            : Color(colorType(
-                                                                type.name)),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12),
-                                                      ),
-                                                      child: Text(
-                                                        capitalize(type.name),
-                                                        style: const TextStyle(
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w800,
-                                                          color: Color.fromARGB(
-                                                              209,
-                                                              255,
-                                                              255,
-                                                              255),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                              ),
+                                              TypeEffectRow(types: details.type.map((value) => value.name).toList(),),
                                             ],
                                           ),
                                         ),
