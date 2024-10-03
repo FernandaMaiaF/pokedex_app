@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pokedex_app/data/models/pokemon_info_model.dart';
 import 'package:pokedex_app/data/models/pokemon_model.dart';
-import 'package:pokedex_app/main.dart';
 import 'package:pokedex_app/presentation/controllers/favorites_store_controller.dart';
 import 'package:pokedex_app/presentation/controllers/pokemon_detail_controller.dart';
 import 'package:pokedex_app/presentation/utils/color_pokemon_type.dart';
@@ -12,7 +11,7 @@ import 'package:pokedex_app/presentation/views/widgets/type_effect_row_widget.da
 
 class PokemonDetailView extends StatelessWidget {
   static const routName = '/pokemon-detail';
-  final FavoritesStore favoritesStore = getIt<FavoritesStore>();
+  final FavoritesStore favoritesStore = GetIt.instance<FavoritesStore>();
   final PokemonDetailController pokemonDetailController =
       GetIt.I<PokemonDetailController>();
 
@@ -205,7 +204,7 @@ class PokemonDetailView extends StatelessWidget {
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Text(
-                                                pokemonInfo.height.toString(),
+                                               '${ pokemonInfo.height/10} m',
                                                 style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w700,

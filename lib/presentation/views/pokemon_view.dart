@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pokedex_app/presentation/controllers/favorites_store_controller.dart';
 
 import 'package:pokedex_app/presentation/controllers/pokemon_controller.dart';
 import 'package:pokedex_app/presentation/utils/color_pokemon_type.dart';
@@ -12,6 +13,8 @@ class PokemonView extends StatelessWidget {
   static const routeName = '/pokemon-list';
 
   final PokemonController controller = GetIt.instance<PokemonController>();
+  final FavoritesStore favoritesStore = GetIt.instance<FavoritesStore>();
+
   final TextEditingController _searchController = TextEditingController();
 
   PokemonView({super.key}) {
@@ -30,29 +33,51 @@ class PokemonView extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                fillColor: Colors.grey.shade300,
-                filled: true,
-                prefixIcon: const Icon(Icons.search),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.clear),
-                  onPressed: () {
-                    _searchController.clear();
-                    controller.filterPokemons('');
-                  },
+          Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      fillColor: Colors.grey.shade300,
+                      filled: true,
+                      prefixIcon: const Icon(Icons.search),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: () {
+                          _searchController.clear();
+                          controller.filterPokemons('');
+                        },
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      hintText: 'Buscar Pokémon',
+                    ),
+                    onChanged: (value) => controller.filterPokemons(value),
+                  ),
                 ),
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                hintText: 'Buscar Pokémon',
               ),
-              onChanged: (value) => controller.filterPokemons(value),
-            ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  shape: const CircleBorder(),
+                  padding: const EdgeInsets.all(12),
+                ),
+                onPressed: () {
+                  controller.toggleFavorites();
+                },
+                child: Observer(
+                  builder: (_) => Icon(
+                    controller.onlyFavorites ? Icons.star : Icons.star_border,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+            ],
           ),
           Expanded(
             child: Observer(
@@ -66,7 +91,7 @@ class PokemonView extends StatelessWidget {
                     padding: const EdgeInsets.all(8),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, mainAxisExtent: 135),
+                            crossAxisCount: 2, mainAxisExtent: 140),
                     itemCount: controller.filteredPokemons.length,
                     itemBuilder: (context, index) {
                       final pokemon = controller.filteredPokemons[index];
@@ -118,7 +143,11 @@ class PokemonView extends StatelessWidget {
                                                   color: Colors.white,
                                                 ),
                                               ),
-                                              TypeEffectRow(types: details.type.map((value) => value.name).toList(),),
+                                              TypeEffectRow(
+                                                types: details.type
+                                                    .map((value) => value.name)
+                                                    .toList(),
+                                              ),
                                             ],
                                           ),
                                         ),
@@ -141,6 +170,13 @@ class PokemonView extends StatelessWidget {
                                       scale: 5.5,
                                     ),
                                   ),
+                                  if (favoritesStore.favorites
+                                      .contains(pokemon.name))
+                                    const Positioned(
+                                        right: 0,
+                                        bottom: 0,
+                                        child: Icon(Icons.star,
+                                            color: Colors.white)),
                                 ],
                               ),
                             ),

@@ -89,6 +89,22 @@ mixin _$PokemonController on _PokemonControllerBase, Store {
     });
   }
 
+  late final _$onlyFavoritesAtom =
+      Atom(name: '_PokemonControllerBase.onlyFavorites', context: context);
+
+  @override
+  bool get onlyFavorites {
+    _$onlyFavoritesAtom.reportRead();
+    return super.onlyFavorites;
+  }
+
+  @override
+  set onlyFavorites(bool value) {
+    _$onlyFavoritesAtom.reportWrite(value, super.onlyFavorites, () {
+      super.onlyFavorites = value;
+    });
+  }
+
   late final _$isLoadingAtom =
       Atom(name: '_PokemonControllerBase.isLoading', context: context);
 
@@ -187,6 +203,17 @@ mixin _$PokemonController on _PokemonControllerBase, Store {
   }
 
   @override
+  void toggleFavorites() {
+    final _$actionInfo = _$_PokemonControllerBaseActionController.startAction(
+        name: '_PokemonControllerBase.toggleFavorites');
+    try {
+      return super.toggleFavorites();
+    } finally {
+      _$_PokemonControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 pokemons: ${pokemons},
@@ -194,6 +221,7 @@ pokemonDetails: ${pokemonDetails},
 filteredPokemons: ${filteredPokemons},
 pokemonInfo: ${pokemonInfo},
 pokemonInfoType: ${pokemonInfoType},
+onlyFavorites: ${onlyFavorites},
 isLoading: ${isLoading},
 isLoadingDetails: ${isLoadingDetails},
 isLoadingInfo: ${isLoadingInfo}

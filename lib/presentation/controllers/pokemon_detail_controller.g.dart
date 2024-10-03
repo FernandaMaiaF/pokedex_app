@@ -78,9 +78,9 @@ mixin _$PokemonDetailController on _PokemonDetailController, Store {
       context: context);
 
   @override
-  Future<void> loadPokemonDetail(String pokemonId) {
+  Future<void> loadPokemonDetail(String urlPokemon) {
     return _$loadPokemonDetailAsyncAction
-        .run(() => super.loadPokemonDetail(pokemonId));
+        .run(() => super.loadPokemonDetail(urlPokemon));
   }
 
   @override
