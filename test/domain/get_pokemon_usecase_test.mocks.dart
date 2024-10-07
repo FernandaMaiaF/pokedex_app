@@ -3,14 +3,15 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i6;
+import 'dart:async' as _i7;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:pokedex_app/data/models/pokemon_evolution_model.dart' as _i5;
 import 'package:pokedex_app/data/models/pokemon_info_model.dart' as _i3;
-import 'package:pokedex_app/data/models/pokemon_model.dart' as _i7;
+import 'package:pokedex_app/data/models/pokemon_model.dart' as _i8;
 import 'package:pokedex_app/data/models/pokemon_summary_model.dart' as _i2;
 import 'package:pokedex_app/data/models/pokemon_type_info_model.dart' as _i4;
-import 'package:pokedex_app/data/repositories/pokemon_repository.dart' as _i5;
+import 'package:pokedex_app/data/repositories/pokemon_repository.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -58,16 +59,27 @@ class _FakePokemonTypeInfoModel_2 extends _i1.SmartFake
         );
 }
 
+class _FakePokemonEvolutionModel_3 extends _i1.SmartFake
+    implements _i5.PokemonEvolutionModel {
+  _FakePokemonEvolutionModel_3(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [PokemonRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPokemonRepository extends _i1.Mock implements _i5.PokemonRepository {
+class MockPokemonRepository extends _i1.Mock implements _i6.PokemonRepository {
   MockPokemonRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i6.Future<List<_i7.PokemonModel>> getPokemons(
+  _i7.Future<List<_i8.PokemonModel>> getPokemons(
     int? limit,
     int? offset,
   ) =>
@@ -80,17 +92,17 @@ class MockPokemonRepository extends _i1.Mock implements _i5.PokemonRepository {
           ],
         ),
         returnValue:
-            _i6.Future<List<_i7.PokemonModel>>.value(<_i7.PokemonModel>[]),
-      ) as _i6.Future<List<_i7.PokemonModel>>);
+            _i7.Future<List<_i8.PokemonModel>>.value(<_i8.PokemonModel>[]),
+      ) as _i7.Future<List<_i8.PokemonModel>>);
 
   @override
-  _i6.Future<_i2.PokemonSummaryModel> getPokemonSummary(String? url) =>
+  _i7.Future<_i2.PokemonSummaryModel> getPokemonSummary(String? url) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPokemonSummary,
           [url],
         ),
-        returnValue: _i6.Future<_i2.PokemonSummaryModel>.value(
+        returnValue: _i7.Future<_i2.PokemonSummaryModel>.value(
             _FakePokemonSummaryModel_0(
           this,
           Invocation.method(
@@ -98,33 +110,33 @@ class MockPokemonRepository extends _i1.Mock implements _i5.PokemonRepository {
             [url],
           ),
         )),
-      ) as _i6.Future<_i2.PokemonSummaryModel>);
+      ) as _i7.Future<_i2.PokemonSummaryModel>);
 
   @override
-  _i6.Future<_i3.PokemonInfoModel> getPokemonInfo(String? url) =>
+  _i7.Future<_i3.PokemonInfoModel> getPokemonInfo(String? url) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPokemonInfo,
           [url],
         ),
         returnValue:
-            _i6.Future<_i3.PokemonInfoModel>.value(_FakePokemonInfoModel_1(
+            _i7.Future<_i3.PokemonInfoModel>.value(_FakePokemonInfoModel_1(
           this,
           Invocation.method(
             #getPokemonInfo,
             [url],
           ),
         )),
-      ) as _i6.Future<_i3.PokemonInfoModel>);
+      ) as _i7.Future<_i3.PokemonInfoModel>);
 
   @override
-  _i6.Future<_i4.PokemonTypeInfoModel> getPokemonTypeInfo(String? url) =>
+  _i7.Future<_i4.PokemonTypeInfoModel> getPokemonTypeInfo(String? url) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPokemonTypeInfo,
           [url],
         ),
-        returnValue: _i6.Future<_i4.PokemonTypeInfoModel>.value(
+        returnValue: _i7.Future<_i4.PokemonTypeInfoModel>.value(
             _FakePokemonTypeInfoModel_2(
           this,
           Invocation.method(
@@ -132,5 +144,22 @@ class MockPokemonRepository extends _i1.Mock implements _i5.PokemonRepository {
             [url],
           ),
         )),
-      ) as _i6.Future<_i4.PokemonTypeInfoModel>);
+      ) as _i7.Future<_i4.PokemonTypeInfoModel>);
+
+  @override
+  _i7.Future<_i5.PokemonEvolutionModel> getPokemonEvolution(String? url) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPokemonEvolution,
+          [url],
+        ),
+        returnValue: _i7.Future<_i5.PokemonEvolutionModel>.value(
+            _FakePokemonEvolutionModel_3(
+          this,
+          Invocation.method(
+            #getPokemonEvolution,
+            [url],
+          ),
+        )),
+      ) as _i7.Future<_i5.PokemonEvolutionModel>);
 }

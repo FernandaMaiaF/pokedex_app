@@ -7,8 +7,10 @@ class PokemonModel {
   final String url;
   PokemonSummaryModel? summary;
   PokemonInfoModel? info;
+  String? imageUrl;
 
-  PokemonModel({required this.name, required this.url, this.summary});
+  PokemonModel({required this.name, required this.url, this.summary, String imageUrl = ''});
+
 
   factory PokemonModel.fromJson(Map<String, dynamic> json) {
     return PokemonModel(

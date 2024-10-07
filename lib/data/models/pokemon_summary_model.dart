@@ -3,10 +3,12 @@ import 'package:pokedex_app/data/models/pokemon_type_model.dart';
 class PokemonSummaryModel {
   final int id;
   final List<PokemonTypeModel> type;
+  final String urlspecies;
 
   PokemonSummaryModel(
       {required this.id,
       required this.type,
+      required this.urlspecies,
     });
 
   factory PokemonSummaryModel.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class PokemonSummaryModel {
     return PokemonSummaryModel(
       id: json['id'],
       type: pokemonTypes,
+      urlspecies: json['species']['url'],
     );
   }
 }

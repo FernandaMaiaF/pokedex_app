@@ -3,6 +3,11 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:pokedex_app/data/repositories/pokemon_repository.dart';
 import 'package:pokedex_app/data/repositories/pokemon_repository_impl.dart';
+import 'package:pokedex_app/data/sources/remote/pokemon_detail_evolution_service.dart';
+import 'package:pokedex_app/data/sources/remote/pokemon_detail_service.dart';
+import 'package:pokedex_app/data/sources/remote/pokemon_detail_type_service.dart';
+import 'package:pokedex_app/data/sources/remote/pokemon_service.dart';
+import 'package:pokedex_app/domain/usecases/get_pokemon_evolution_usecase.dart';
 import 'package:pokedex_app/domain/usecases/get_pokemon_info_usecase.dart';
 import 'package:pokedex_app/domain/usecases/get_pokemon_summary_usecase.dart';
 import 'package:pokedex_app/domain/usecases/get_pokemon_type_info_usecase.dart';
@@ -10,6 +15,7 @@ import 'package:pokedex_app/domain/usecases/get_pokemons_usecase.dart';
 import 'package:pokedex_app/presentation/controllers/favorites_store_controller.dart';
 import 'package:pokedex_app/presentation/controllers/pokemon_controller.dart';
 import 'package:pokedex_app/presentation/controllers/pokemon_detail_controller.dart';
+import 'package:pokedex_app/presentation/controllers/pokemon_evolution_controller.dart';
 import 'package:pokedex_app/presentation/views/pokemon_detail_view.dart';
 import 'package:pokedex_app/presentation/views/pokemon_view.dart';
 
@@ -18,9 +24,15 @@ final getIt = GetIt.instance;
 void setup() {
   getIt.registerLazySingleton(() => http.Client());
 
+  // Data Sources
+    getIt.registerLazySingleton<PokemonService>(() => PokemonService(client: getIt()));
+    getIt.registerLazySingleton<PokemonDetailService>(() => PokemonDetailService(client: getIt()));
+    getIt.registerLazySingleton<PokemonDetailTypeService>(() => PokemonDetailTypeService(client: getIt()));
+    getIt.registerLazySingleton<PokemonDetailEvolutionService>(() => PokemonDetailEvolutionService(client: getIt()));
+
   // Repositório
   getIt.registerLazySingleton<PokemonRepository>(
-      () => PokemonRepositoryImpl(getIt<http.Client>()));
+      () => PokemonRepositoryImpl(getIt<http.Client>(), getIt<PokemonService>(),getIt<PokemonDetailService>(), getIt<PokemonDetailService>(), getIt<PokemonDetailTypeService>(), getIt<PokemonDetailEvolutionService>()));
 
   // Caso de Uso
   getIt.registerFactory(() => GetPokemonsUsecase(getIt<PokemonRepository>()));
@@ -30,6 +42,8 @@ void setup() {
       .registerFactory(() => GetPokemonInfoUseCase(getIt<PokemonRepository>()));
   getIt.registerFactory(
       () => GetPokemonTypeInfoUseCase(getIt<PokemonRepository>()));
+getIt.registerFactory(
+      () => GetPokemonEvolutionUseCase(getIt<PokemonRepository>()));
 
   // Controller
   getIt.registerFactory(() => PokemonController(
@@ -40,6 +54,9 @@ void setup() {
   getIt.registerFactory<PokemonDetailController>(
       () => PokemonDetailController(getIt<PokemonRepository>()));
   getIt.registerLazySingleton<FavoritesStore>(() => FavoritesStore());
+  getIt.registerLazySingleton<PokemonEvolutionController>(() => PokemonEvolutionController(getIt<GetPokemonEvolutionUseCase>()));
+
+  
 }
 
 void main() {

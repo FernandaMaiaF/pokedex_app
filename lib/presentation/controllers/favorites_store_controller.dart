@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:pokedex_app/data/sources/favorite_channel.dart';
+import 'package:pokedex_app/data/sources/local/favorite_channel.dart';
 
 part 'favorites_store_controller.g.dart';
 

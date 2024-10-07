@@ -1,3 +1,4 @@
+import 'package:pokedex_app/data/models/pokemon_evolution_model.dart';
 import 'package:pokedex_app/data/models/pokemon_info_model.dart';
 import 'package:pokedex_app/data/models/pokemon_summary_model.dart';
 import 'package:pokedex_app/data/models/pokemon_type_info_model.dart';
@@ -9,4 +10,5 @@ abstract class PokemonRepository {
   Future<PokemonSummaryModel> getPokemonSummary(String url);
   Future<PokemonInfoModel> getPokemonInfo(String url);
   Future<PokemonTypeInfoModel> getPokemonTypeInfo(String url);
+  Future<PokemonEvolutionModel> getPokemonEvolution(String url);
 }

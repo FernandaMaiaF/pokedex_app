@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pokedex_app/data/models/pokemon_evolution_model.dart';
 import 'package:pokedex_app/data/models/pokemon_info_model.dart';
 import 'package:pokedex_app/data/models/pokemon_model.dart';
 import 'package:pokedex_app/presentation/controllers/favorites_store_controller.dart';
 import 'package:pokedex_app/presentation/controllers/pokemon_detail_controller.dart';
+import 'package:pokedex_app/presentation/controllers/pokemon_evolution_controller.dart';
 import 'package:pokedex_app/presentation/utils/color_pokemon_type.dart';
 import 'package:pokedex_app/presentation/utils/string_utils.dart';
 import 'package:pokedex_app/presentation/views/widgets/type_effect_row_widget.dart';
@@ -14,9 +16,10 @@ class PokemonDetailView extends StatelessWidget {
   final FavoritesStore favoritesStore = GetIt.instance<FavoritesStore>();
   final PokemonDetailController pokemonDetailController =
       GetIt.I<PokemonDetailController>();
+  final PokemonEvolutionController pokemonEvolutionController =
+      GetIt.I<PokemonEvolutionController>();
 
   PokemonDetailView({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +27,8 @@ class PokemonDetailView extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as PokemonModel;
     String? colorTypeDetail = pokemon.summary?.type[0].name;
     pokemonDetailController.loadPokemonDetail(pokemon.url);
+    pokemonEvolutionController
+        .getPokemonWithEvolution(pokemon.summary!.urlspecies);
 
     return Scaffold(
         backgroundColor: Color(colorType(colorTypeDetail)),
@@ -83,7 +88,11 @@ class PokemonDetailView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Row(
                 children: [
-                  TypeEffectRow(types: pokemon.summary!.type.map((value) => value.name).toList(),),
+                  TypeEffectRow(
+                    types: pokemon.summary!.type
+                        .map((value) => value.name)
+                        .toList(),
+                  ),
                 ],
               ),
             ),
@@ -204,7 +213,7 @@ class PokemonDetailView extends StatelessWidget {
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Text(
-                                               '${ pokemonInfo.height/10} m',
+                                                '${pokemonInfo.height / 10} m',
                                                 style: const TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w700,
@@ -318,11 +327,56 @@ class PokemonDetailView extends StatelessWidget {
                                 )
                               ],
                             ),
-                            const Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text('evolution'),
-                              ],
+                            Observer(
+                              builder: (_) {
+                                if (pokemonEvolutionController.isLoading) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                }
+
+                                if (pokemonEvolutionController.errorMessage !=
+                                    null) {
+                                  return Center(
+                                      child: Text(
+                                          'Erro: ${pokemonEvolutionController.errorMessage}'));
+                                }
+
+                                final PokemonEvolutionModel? pokemonEvolution =
+                                    pokemonEvolutionController.pokemonEvolution;
+                                if (pokemonEvolution == null) {
+                                  return const Center(
+                                      child: Text(
+                                          'Detalhes do Pokémon não disponíveis.'));
+                                }
+                                return Column(
+                                  children: [
+                                    if (pokemonEvolution.nameEvol1 != null)
+                                      Text(
+                                        capitalize(pokemonEvolution.nameEvol1!),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    if (pokemonEvolution.nameEvol1 != null)
+                                      Text(
+                                        capitalize(pokemonEvolution.nameEvol2!),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    if (pokemonEvolution.nameEvol1 != null)
+                                      Text(
+                                        capitalize(pokemonEvolution.nameEvol3!),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                  ],
+                                );
+                              },
                             ),
                             const Column(
                               mainAxisSize: MainAxisSize.min,

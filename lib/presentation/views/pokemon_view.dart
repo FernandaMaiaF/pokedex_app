@@ -168,6 +168,8 @@ class PokemonView extends StatelessWidget {
                                     child: Image.network(
                                       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${details.id}.png',
                                       scale: 5.5,
+                                      errorBuilder: (context, error, stackTrace) =>
+                                          const Icon(Icons.error),
                                     ),
                                   ),
                                   if (favoritesStore.favorites
