@@ -7,3 +7,8 @@ String capitalize(String s) {
 String formattPokedexIndex(int index) {
   return '#${index.toString().padLeft(3, '0')}';
 }
+
+String getIDfromURL(String url) {
+  final uri = Uri.parse(url);
+  return uri.pathSegments[uri.pathSegments.length - 2];
+}

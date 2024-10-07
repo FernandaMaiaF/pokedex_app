@@ -96,28 +96,26 @@ class PokemonDetailView extends StatelessWidget {
                 ],
               ),
             ),
-            Wrap(
-              children: [
-                Container(
-                  height: 300,
-                  width: 300,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color.fromARGB(255, 255, 255, 255)
-                            .withOpacity(0.1),
-                      ),
-                    ],
-                  ),
-                  child: Image.network(
-                    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.summary!.id}.png',
-                    fit: BoxFit.cover,
-                  ),
+            Expanded(
+              flex: 2,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color.fromARGB(255, 255, 255, 255)
+                          .withOpacity(0.1),
+                    ),
+                  ],
                 ),
-              ],
+                child: Image.network(
+                  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.summary!.id}.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
             Expanded(
+              flex: 3,
               child: DefaultTabController(
                 length: 4,
                 child: Container(
@@ -350,29 +348,160 @@ class PokemonDetailView extends StatelessWidget {
                                 }
                                 return Column(
                                   children: [
-                                    if (pokemonEvolution.nameEvol1 != null)
-                                      Text(
-                                        capitalize(pokemonEvolution.nameEvol1!),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    if (pokemonEvolution.nameEvol1 != null)
-                                      Text(
-                                        capitalize(pokemonEvolution.nameEvol2!),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    if (pokemonEvolution.nameEvol1 != null)
-                                      Text(
-                                        capitalize(pokemonEvolution.nameEvol3!),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w700,
-                                        ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        if (pokemonEvolution.urlSpeciesEvol1 !=
+                                                null &&
+                                            pokemonEvolution.nameEvol1 != null)
+                                          Wrap(
+                                            children: [
+                                              Container(
+                                                height: 100,
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                                  255,
+                                                                  255,
+                                                                  255,
+                                                                  255)
+                                                              .withOpacity(0.1),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Image.network(
+                                                  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${getIDfromURL(pokemonEvolution.urlSpeciesEvol1!)}.png',
+                                                  height: 6,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        if (pokemonEvolution.minLevelEvol1 !=
+                                            null)
+                                          Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const Icon(
+                                                Icons.arrow_forward,
+                                                size: 32,
+                                              ),
+                                              Text(
+                                                  '(Level ${pokemonEvolution.minLevelEvol1})'),
+                                            ],
+                                          ),
+                                        if (pokemonEvolution.urlSpeciesEvol2 !=
+                                                null &&
+                                            pokemonEvolution.nameEvol2 != null)
+                                          Wrap(
+                                            children: [
+                                              Container(
+                                                height: 100,
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                                  255,
+                                                                  255,
+                                                                  255,
+                                                                  255)
+                                                              .withOpacity(0.1),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Image.network(
+                                                  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${getIDfromURL(pokemonEvolution.urlSpeciesEvol2!)}.png',
+                                                  height: 6,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                      ],
+                                    ),
+                                    const Divider(),
+                                    if (pokemonEvolution.nameEvol3 != null)
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          if (pokemonEvolution
+                                                      .urlSpeciesEvol2 !=
+                                                  null &&
+                                              pokemonEvolution.nameEvol2 !=
+                                                  null)
+                                            Wrap(
+                                              children: [
+                                                Container(
+                                                  height: 100,
+                                                  width: 100,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: const Color
+                                                                .fromARGB(255,
+                                                                255, 255, 255)
+                                                            .withOpacity(0.1),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Image.network(
+                                                    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${getIDfromURL(pokemonEvolution.urlSpeciesEvol2!)}.png',
+                                                    height: 6,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              const Icon(
+                                                Icons.arrow_forward,
+                                                size: 32,
+                                              ),
+                                              if (pokemonEvolution
+                                                      .minLevelEvol2 !=
+                                                  null)
+                                                Text(
+                                                    '(Level ${pokemonEvolution.minLevelEvol2})'),
+                                            ],
+                                          ),
+                                          if (pokemonEvolution
+                                                      .urlSpeciesEvol3 !=
+                                                  null &&
+                                              pokemonEvolution.nameEvol3 !=
+                                                  null)
+                                            Wrap(
+                                              children: [
+                                                Container(
+                                                  height: 100,
+                                                  width: 100,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: const Color
+                                                                .fromARGB(255,
+                                                                255, 255, 255)
+                                                            .withOpacity(0.1),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  child: Image.network(
+                                                    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${getIDfromURL(pokemonEvolution.urlSpeciesEvol3!)}.png',
+                                                    height: 6,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                        ],
                                       ),
                                   ],
                                 );
