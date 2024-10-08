@@ -66,22 +66,30 @@ O projeto segue a arquitetura Clean Architecture e está dividido nas seguintes 
 ### Done Funcionalidades
 
 [✓] Busca dos pokemons focando em deixar rápida a apresentação na tela
+
 [✓] Inclusão na tela principal da
    - imagem
-   - tipos, cor e id dos pokemons 
+   - tipos, cor e id dos pokemons
+     
 [✓] Criação do filtro de busca dos pokemons
+
 [✓] Criação da tela de detalhes, mostrar
    - nome, imagem, id, tipos
+
 [✓] Criação da funcionalidade de favoritar o pokemon e armazenar essa infomação no canal nativo do dispositivo
+
 [✓] Criação do filtro de pokemons favoritos na tela principal
+
 [✓] Criação da aba Aboult do pokemon com:
    - peso e altura
    - informações gerais de danos do pokemon recebendo a informação pelos tipos que o pokemon possui.
+
 [✓] Criação da aba Base Status com os dados gerais de hp, ataque....
+
 [✓] Criação da aba de Evoluções considerar os casos abaixo:
-   [✓] Pokemon sem evoluções: ex: Ditto
-   [✓] Pokemon com um nível de evolução: ex: Ekans
-   [✓] Pokemon com dois níveis de evolução: ex: Charmander
+   - Pokemon sem evoluções: ex: Ditto
+   - Pokemon com um nível de evolução: ex: Ekans
+   - Pokemon com dois níveis de evolução: ex: Charmander
 
 ### TODO Funcionalidades
 
