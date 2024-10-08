@@ -61,6 +61,7 @@ O projeto segue a arquitetura Clean Architecture e está dividido nas seguintes 
 
 2. Para dispositivos andoid é possível testar com a [apk](https://drive.google.com/file/d/19mP8qDA7rHHGNuWdrl5bkgwZTZTGy65b/view?usp=drive_link)
 
+## Funcionalidades
 
 ### Done Funcionalidades
 
