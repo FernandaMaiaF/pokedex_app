@@ -1,5 +1,4 @@
 import 'package:pokedex_app/data/models/pokemon_base_status_model.dart';
-import 'package:pokedex_app/data/models/pokemon_model.dart';
 import 'package:pokedex_app/data/models/pokemon_type_model.dart';
 
 class PokemonInfoModel {
@@ -9,7 +8,6 @@ class PokemonInfoModel {
   final List<PokemonBaseStatusModel> baseStatus;
   final int weight;
   final int height;
-  final List<PokemonModel> evolutions = [];
 
   PokemonInfoModel(
       {required this.id,
