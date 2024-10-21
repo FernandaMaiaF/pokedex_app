@@ -4,6 +4,8 @@ Este é um aplicativo feito em Flutter para um desafio de 1 semana. O app funcio
 
 <img width="392" alt="Screenshot 2024-10-21 at 15 11 15" src="https://github.com/user-attachments/assets/e186b5ab-a9ef-4b53-86da-761dc6adddd6">
 
+Vídeo do app funcionando: https://youtu.be/mtjhUo9RQzY
+
 ## Tecnologias Utilizadas
 
 - Flutter
