@@ -1,6 +1,8 @@
 # pokedex_app
 
-Este é um aplicativo Flutter que funciona como uma Pokédex, permitindo que os usuários visualizem informações sobre as 3 gerações de Pokémons.
+Este é um aplicativo feito em Flutter para um desafio de 1 semana. O app funciona como uma Pokédex, permitindo que os usuários visualizem informações sobre as 3 gerações de Pokémons.
+
+<img width="392" alt="Screenshot 2024-10-21 at 15 11 15" src="https://github.com/user-attachments/assets/e186b5ab-a9ef-4b53-86da-761dc6adddd6">
 
 ## Tecnologias Utilizadas
 
